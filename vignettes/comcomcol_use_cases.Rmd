@@ -1,0 +1,56 @@
+---
+title: "Use cases for comcomcol"
+author: "Frederik Sachser"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+library(datawoman)
+```
+
+# Example 1:
+- check classes and frequency of slightly different dataframes before conducting a merge/join/combine
+```{r}
+df1 <- df2 <- df3 <- df4 <- iris[1:4]
+df1$Petal.Width <- as.character(df1$Sepal.Width)
+df2$Sepal.Width <- NULL
+df3 <- df4[1:5,]
+comcomcol(df1, df2, df3, df4)
+```
+
+# Example 2
+- compare consistency of mean for all numeric variables of iris data by increasing sample size
+```{r}
+df1 <- df2 <- df3 <- df4 <- iris[1:4]
+n <- 1:nrow(iris)
+df1 <- df1[sample(n, 10),]
+df2 <- df2[sample(n, 50),]
+df3 <- df3[sample(n, 100),]
+comcomcol(df1, df2, df3, df4, custom_fun = mean)
+```
+
+# Example 4:
+- Specify your own function for comparison
+```{r}
+df1 <- df2 <- df3 <- df4 <- mtcars
+df3$mpg <- NULL
+df2$hp <- NULL
+comcomcol(df1, df2, df3, df4, custom_fun = function(x) round(median(x^3)))
+```
+
+# Example 4
+-  Quickly check the classes of your dataframe with a clean look.
+```{r}
+comcomcol(iris)
+```
+
+# Example 5
+- Quickly check mean (or any other function) of all possible columns of your dataframe. Warning message appears in case of impossible call (e.g. mean of a character variable). Even if your custom function will fail in some cases all other columns will behave as expected.
+```{r}
+comcomcol(iris, custom_fun = mean)
+```
