@@ -13,7 +13,12 @@ comcomcol <-
            freq_only = FALSE,
            freq_sort = TRUE) {
     # prepare input
-    thelist <- list(...)
+      thelist <- list(...)
+    # check if first element of list is a dataframe (possible input: single object (list or single dataframes), multiple objects)
+      if (is.data.frame(thelist[[1]]) == FALSE) {
+        thelist <- unlist(thelist, recursive = FALSE)
+      }
+
     ilength <- length(thelist)
     listnames <- list()
 
