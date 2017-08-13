@@ -15,7 +15,7 @@ devtools::install_github("sachserf/datawoman")
 ### COMpare COMmon COLumns - comcomcol()
 - Functional for different tasks:
 
-#### compare class for each  
+#### compare class
 - e.g. useful just before combining similar dataframes 
 ```R
 foo <- iris
