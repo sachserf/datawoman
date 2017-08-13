@@ -1,7 +1,7 @@
 Package: datawoman
 Type: Package
 Title: There is no DATA W/O MANipulation
-Version: 0.1.0
+Version: 0.1.1
 Author: Frederik Sachser
 Maintainer: <frederik.sachser@gmx.at>
 Description: This package provides functions to enhance some tasks for cleaning/manipulating/testing data.
