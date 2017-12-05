@@ -13,11 +13,11 @@ comcomcol <-
            freq_only = FALSE,
            freq_sort = TRUE) {
     # prepare input
-      thelist <- list(...)
+    thelist <- list(...)
     # check if first element of list is a dataframe (possible input: single object (list or single dataframes), multiple objects)
-      if (is.data.frame(thelist[[1]]) == FALSE) {
-        thelist <- unlist(thelist, recursive = FALSE)
-      }
+    if (is.data.frame(thelist[[1]]) == FALSE) {
+      thelist <- unlist(thelist, recursive = FALSE)
+    }
 
     ilength <- length(thelist)
     listnames <- list()
@@ -82,22 +82,15 @@ comcomcol <-
       # add length of unique values of custom function
       listnames <- cbind(listnames[1:2], UNIQ = outvec, listnames[3:ncol(listnames)])
 
-      #return(outvec)
-      list_out <- list(COMMON = "", DIFFERENT = "")
-      # names(list_out) <- c("COMMON", "DIFFERENT")
-
-      #      list_out[[1]] <- listnames
+      list_out <- list()
       if (any(outvec == 1)) {
         list_out$COMMON <- listnames[(outvec == 1), ]
-      } else {
-        list_out$COMMON <- paste("No common columns with identical values")
       }
       if (any(outvec > 1)) {
         list_out$DIFFERENT <- listnames[(outvec > 1), ]
-      } else {
-        list_out$DIFFERENT <-
-          paste("No common columns with different values")
       }
+
+      list_out$SUMMARY <- paste(ifelse(is.null(list_out$DIFFERENT), "0", nrow(list_out$DIFFERENT)), "columns differ.", nrow(list_out$COMMON), "columns are equal.")
 
       return(list_out)
     }
